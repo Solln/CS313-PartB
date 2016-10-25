@@ -5,9 +5,9 @@ public class DummyGroups {
 
     public DummyGroups(){
 
-        ThreadGroup a = new ThreadGroup("G - A");
-        ThreadGroup b = new ThreadGroup("G - B");
-        ThreadGroup c = new ThreadGroup(a, "G - C");
+        ThreadGroup a = new ThreadGroup("A");
+        ThreadGroup b = new ThreadGroup("B");
+        ThreadGroup c = new ThreadGroup(a, "C");
 
 
         (new Thread(a, new GroupWorker())).start();
@@ -20,6 +20,8 @@ public class DummyGroups {
         (new Thread(c, new GroupWorker())).start();
         (new Thread(c, new GroupWorker())).start();
         (new Thread(c, new GroupWorker())).start();
+
+
 
     }
 
