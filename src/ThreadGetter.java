@@ -10,7 +10,6 @@ public class ThreadGetter {
 
     public ArrayList<String> getThreads() {
 
-        DummyGroups dummy = new DummyGroups();
         textToBePassed = new ArrayList<>();
 
             ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();

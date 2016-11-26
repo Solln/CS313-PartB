@@ -1,25 +1,29 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+
 
 /**
  * Created by Darren on 03/11/2016.
  */
 public class LiveThreads {
 
+    static JTextArea area = new JTextArea();
+
+    static JScrollPane scroll = new JScrollPane(area);
+
     public static void main(String[] args){
 
-        ArrayList<String> threadText;
+        DummyGroups dummy = new DummyGroups();
 
-        ThreadGetter newThreadGetter = new ThreadGetter();
-
-        threadText = newThreadGetter.getThreads();
-
-        initializeFrame(threadText);
+        initializeFrame();
 
     }
 
-    private static void initializeFrame(ArrayList<String> threadText){
+    private static void initializeFrame(){
 
         JPanel panel1 = new JPanel();
 
@@ -27,22 +31,60 @@ public class LiveThreads {
 
         JFrame frame = new JFrame();
 
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER)); // <-- you need this for now
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        Box box = Box.createVerticalBox();
-        frame.add(box);
+        JButton refresh = new JButton();
 
-        for (String text : threadText){
-            JLabel label = new JLabel(text);
-            box.add( label );
-        }
+        refresh.setText("Refresh");
 
         frame.setVisible(true);
 
+        refresh.addActionListener(new ActionListener() {
 
-        // optional, but nice to have.
+            public void actionPerformed(ActionEvent event) {
+
+                // Need to remove the previous box
+
+                area.setText("");
+
+                ArrayList<String> newThreadText;
+
+                ThreadGetter newThreadGetter = new ThreadGetter();
+
+                newThreadText = newThreadGetter.getThreads();
+
+                createLabels(newThreadText);
+
+                frame.add(scroll);
+
+
+            }
+
+        });
+
+        frame.add(refresh);
+
+        refresh.doClick();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+    }
+
+    private static void createLabels(ArrayList<String> threadText){
+
+        Box box = Box.createVerticalBox();
+
+        for (String text : threadText){
+
+            if (text.contains("Group")){
+                area.append("\n");
+            }
+            area.append(text);
+            if (text.contains("Group")){
+                area.append("\n");
+            }
+        }
+
     }
 
 

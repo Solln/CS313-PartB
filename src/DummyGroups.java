@@ -11,15 +11,26 @@ public class DummyGroups {
 
 
         (new Thread(a, new GroupWorker())).start();
-        (new Thread(a, new GroupWorker())).start();
-        (new Thread(a, new GroupWorker())).start();
-        (new Thread(a, new GroupWorker())).start();
 
         (new Thread(b, new GroupWorker())).start();
 
         (new Thread(c, new GroupWorker())).start();
-        (new Thread(c, new GroupWorker())).start();
 
+
+
+
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run(){
+
+                        (new Thread(a, new GroupWorker())).start();
+
+                        (new Thread(b, new GroupWorker())).start();
+
+                    }
+                }, 10000);
 
 
 
